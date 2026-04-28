@@ -35,6 +35,7 @@ TELEGRAM_BOT_TOKEN=токен_от_BotFather
 
 ### C4 System Context Diagram
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff' }}}%%
 C4Context
     title System Context diagram for PineconeManager System
     
@@ -54,6 +55,7 @@ C4Context
 
 ### UML Sequence Diagram: Логика "Умной памяти"
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff' }}}%%
 sequenceDiagram
     participant U as Пользователь
     participant B as Telegram Bot
