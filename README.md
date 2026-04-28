@@ -34,28 +34,37 @@ TELEGRAM_BOT_TOKEN=токен_от_BotFather
 ## 🛠 Архитектура
 
 ### C4 System Context Diagram
+
+<div align="center">
+<div style="background-color: white; padding: 20px; border-radius: 10px;">
+
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff' }}}%%
 C4Context
     title System Context diagram for PineconeManager System
     
-    Person(user, "Пользователь Telegram", "Общается с ботом, отправляет информацию для запоминания.")
-    System(bot_system, "Pinecone Manager Bot", "Обеспечивает интерфейс чата и управление памятью.")
+    Person(user, "Пользователь Telegram", "Общается с ботом, отправляет сообщения.")
+    System(bot_system, "Pinecone Manager Bot", "Интерфейс чата и управление памятью.")
     
-    System_Ext(telegram_api, "Telegram Bot API", "Платформа для обмена сообщениями.")
-    System_Ext(openai_api, "OpenAI API", "Создание векторных представлений (embeddings).")
-    System_Ext(pinecone_db, "Pinecone DB", "Векторная база данных для хранения и поиска.")
+    System_Ext(telegram_api, "Telegram Bot API", "Платформа мессенджера.")
+    System_Ext(openai_api, "OpenAI API", "Создание эмбеддингов.")
+    System_Ext(pinecone_db, "Pinecone DB", "Векторная база данных.")
 
-    Rel(user, telegram_api, "Отправляет сообщения", "HTTPS")
-    Rel(telegram_api, bot_system, "Передает сообщения", "HTTPS")
-    Rel(bot_system, openai_api, "Запрашивает эмбеддинги", "REST API")
-    Rel(bot_system, pinecone_db, "Сохраняет/Ищет векторы", "gRPC/REST")
-    Rel(bot_system, telegram_api, "Отправляет ответы", "HTTPS")
+    Rel(user, telegram_api, "Отправляет", "HTTPS")
+    Rel_D(telegram_api, bot_system, "Передает", "HTTPS")
+    Rel_R(bot_system, openai_api, "Запрашивает", "REST")
+    Rel_L(bot_system, pinecone_db, "Ищет/Сохраняет", "gRPC")
+    Rel_U(bot_system, telegram_api, "Отвечает", "HTTPS")
 ```
 
+</div>
+</div>
+
 ### UML Sequence Diagram: Логика "Умной памяти"
+
+<div align="center">
+<div style="background-color: white; padding: 20px; border-radius: 10px;">
+
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff' }}}%%
 sequenceDiagram
     participant U as Пользователь
     participant B as Telegram Bot
@@ -83,6 +92,9 @@ sequenceDiagram
         B->>U: "✅ Запомнил новую информацию"
     end
 ```
+
+</div>
+</div>
 
 ## 📦 Установка и Запуск
 
