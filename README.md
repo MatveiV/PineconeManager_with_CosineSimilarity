@@ -42,18 +42,20 @@ TELEGRAM_BOT_TOKEN=токен_от_BotFather
 C4Context
     title System Context diagram for PineconeManager System
     
-    Person(user, "Пользователь Telegram", "Общается с ботом, отправляет сообщения.")
-    System(bot_system, "Pinecone Manager Bot", "Интерфейс чата и управление памятью.")
+    Person(user, "Пользователь", "Отправляет сообщения")
+    System_Ext(telegram_api, "Telegram API", "Мессенджер")
+    System(bot_system, "Bot System", "Логика и память")
     
-    System_Ext(telegram_api, "Telegram Bot API", "Платформа мессенджера.")
-    System_Ext(openai_api, "OpenAI API", "Создание эмбеддингов.")
-    System_Ext(pinecone_db, "Pinecone DB", "Векторная база данных.")
+    System_Ext(openai_api, "OpenAI API", "Эмбеддинги")
+    System_Ext(pinecone_db, "Pinecone DB", "Векторная БД")
 
-    Rel(user, telegram_api, "Отправляет", "HTTPS")
-    Rel_D(telegram_api, bot_system, "Передает", "HTTPS")
-    Rel_R(bot_system, openai_api, "Запрашивает", "REST")
-    Rel_L(bot_system, pinecone_db, "Ищет/Сохраняет", "gRPC")
-    Rel_U(bot_system, telegram_api, "Отвечает", "HTTPS")
+    Rel(user, telegram_api, "Текст", "HTTPS")
+    Rel_D(telegram_api, bot_system, "Запрос", "HTTPS")
+    
+    Rel_R(bot_system, openai_api, "REST")
+    Rel_L(bot_system, pinecone_db, "gRPC")
+    
+    Rel_U(bot_system, telegram_api, "Ответ", "HTTPS")
 ```
 
 </div>
